@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Mouhammad Senghor · Data Analyst</title>
+<meta name="description" content="Portfolio de Mouhammad Senghor, Data Analyst : SQL, Excel, Python, Power BI. Six projets présentés étape par étape, avec leurs données.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@600;700;800&display=swap">
+<style>
+/* Mise en page : un dossier d'analyse. Bandeau d'identité, à propos, services en 2×2,
+   puis chaque projet en deux colonnes (fiche à gauche, récit pas à pas et données à droite). */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --sunk:#E9EDF2; --ink:#15202C; --muted:#566475; --line:#D8DFE7;
+  --brand:#1D3347; --on-brand:#EEF2F6; --on-brand-muted:#A9BACB;
+  --accent:#C98A1B; --accent-ink:#8F5D08; --accent-soft:#F7EAD0;
+  --paper:#FFFFFF;
+  --c1:#1D3347; --c2:#C98A1B; --c3:#8AA2B8;
+  --f-display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --s-1:.8125rem; --s0:1rem; --s1:1.125rem; --s2:1.375rem; --s3:1.75rem; --s4:2.375rem; --s5:clamp(2.6rem,6vw,4.25rem);
+  --r:10px; --max:1120px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E151C; --surface:#151F29; --sunk:#1B2733; --ink:#E4EAF0; --muted:#9BA9B7; --line:#273441;
+  --brand:#122130; --on-brand:#E9EEF3; --on-brand-muted:#93A6B8;
+  --accent:#E2A63C; --accent-ink:#EDBA5C; --accent-soft:#3A2D12; --paper:#F4F6F8;
+  --c1:#8FB3D9; --c2:#E2A63C; --c3:#4E6276; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E151C; --surface:#151F29; --sunk:#1B2733; --ink:#E4EAF0; --muted:#9BA9B7; --line:#273441;
+  --brand:#122130; --on-brand:#E9EEF3; --on-brand-muted:#93A6B8;
+  --accent:#E2A63C; --accent-ink:#EDBA5C; --accent-soft:#3A2D12; --paper:#F4F6F8;
+  --c1:#8FB3D9; --c2:#E2A63C; --c3:#4E6276; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:400 var(--s0)/1.65 var(--f-body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--accent-ink);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:clamp(16px,4vw,32px)}
+.eyebrow{font:600 var(--s-1)/1.3 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink)}
+.mono{font-family:var(--f-mono)}
+.prose{display:grid;gap:12px;max-width:68ch}
+
+/* Navigation */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
+.brandmark{font:800 var(--s1)/1 var(--f-display);color:var(--ink);text-decoration:none;white-space:nowrap}
+.brandmark span{color:var(--accent-ink)}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a.l{display:block;padding:6px 10px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:var(--s-1);font-weight:600;white-space:nowrap}
+.nav a.l:hover{color:var(--ink);background:var(--sunk)}
+@media (max-width:720px){.nav .hide-sm{display:none}}
+
+/* Bandeau */
+.hero{background:var(--brand);color:var(--on-brand)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);padding-block:clamp(40px,7vw,80px)}
+.hero .eyebrow{color:var(--accent)}
+.hero h1{font-size:var(--s5);font-weight:800;margin-top:14px;letter-spacing:-.02em}
+.hero .role{font:600 var(--s2)/1.3 var(--f-display);color:var(--accent);margin-top:10px}
+.hero .lead{font-size:var(--s1);max-width:54ch;margin-top:20px;opacity:.94}
+.hero .where{color:var(--on-brand-muted);margin-top:14px;font-size:var(--s-1)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;font-weight:600;text-decoration:none;font-size:.95rem;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--accent);color:#1A1406}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-ghost{border-color:color-mix(in srgb,var(--on-brand) 35%,transparent);color:var(--on-brand)}
+.btn-ghost:hover{background:color-mix(in srgb,var(--on-brand) 10%,transparent)}
+.fiche{align-self:start;background:color-mix(in srgb,var(--on-brand) 7%,transparent);border:1px solid color-mix(in srgb,var(--on-brand) 18%,transparent);border-radius:var(--r);padding:20px 22px}
+.fiche h2{font:600 var(--s-1)/1.2 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--on-brand-muted)}
+.fiche dl{margin:12px 0 0;display:grid;gap:12px}
+.fiche dt{font-size:.75rem;color:var(--on-brand-muted);text-transform:uppercase;letter-spacing:.07em}
+.fiche dd{margin:2px 0 0;font-weight:500}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* Sections */
+section.block{padding-block:clamp(48px,7vw,88px)}
+section.block + section.block{border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:10px;max-width:68ch;margin-bottom:clamp(24px,4vw,40px)}
+.sec-head h2{font-size:var(--s4);font-weight:800}
+.sec-head p{color:var(--muted);font-size:var(--s1)}
+
+/* À propos */
+.about{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:start}
+@media (max-width:860px){.about{grid-template-columns:minmax(0,1fr)}}
+.about .prose p{font-size:1.05rem}
+.trio{display:grid;gap:12px}
+.trio div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.trio b{display:block;font:600 .75rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:4px}
+.method{margin-top:28px;border-left:3px solid var(--accent);padding:4px 0 4px 16px;max-width:72ch}
+.method h3{font-size:var(--s1);margin-bottom:6px}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.services{grid-template-columns:minmax(0,1fr)}}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:12px;align-content:start}
+.svc h3{font-size:var(--s2)}
+.svc .proof{display:flex;flex-wrap:wrap;gap:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:var(--s-1)}
+.svc .proof span{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 .75rem/1 var(--f-mono);padding:6px 8px;border-radius:5px;background:var(--sunk);color:var(--ink);white-space:nowrap}
+
+/* Afrimarket */
+.xp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+@media (max-width:900px){.xp{grid-template-columns:minmax(0,1fr)}}
+.xp .story{display:grid;gap:22px}
+.xp h3{font-size:var(--s2);margin-bottom:8px}
+.xp p + p{margin-top:10px}
+.result{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.result b{font:800 var(--s3)/1 var(--f-display);color:var(--accent-ink);white-space:nowrap}
+.tree{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.tree figcaption{font-size:var(--s-1);color:var(--muted);margin-top:12px}
+.tree svg{width:100%;height:auto;display:block}
+.tree .node rect{fill:var(--sunk);stroke:var(--line)}
+.tree .node text{fill:var(--ink);font:600 13px var(--f-body)}
+.tree .node .sub{fill:var(--muted);font:400 11px var(--f-body)}
+.tree .lever rect{fill:var(--accent-soft);stroke:var(--accent)}
+.tree .lever text{fill:var(--ink);font:600 12.5px var(--f-body)}
+.tree .op{fill:var(--muted);font:700 15px var(--f-display)}
+.tree .edge{stroke:var(--muted);stroke-width:1.2;fill:none}
+.tree .edge-l{stroke:var(--accent);stroke-width:1.6;fill:none;stroke-dasharray:4 3}
+.tree .dim text{fill:var(--muted);font:500 11.5px var(--f-mono)}
+.bridge{margin-top:28px;background:var(--accent-soft);border-radius:var(--r);padding:18px 20px;display:grid;gap:6px}
+.bridge strong{font-family:var(--f-display)}
+
+/* Index des projets */
+.index-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.index{width:100%;border-collapse:collapse;font-size:.95rem}
+.index th,.index td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.index th{font:600 .75rem/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--sunk)}
+.index tr:last-child td{border-bottom:0}
+.index td a{font-weight:600;color:var(--ink)}
+.index td a:hover{color:var(--accent-ink)}
+
+/* Projets */
+.case{padding-top:clamp(40px,6vw,64px);margin-top:clamp(40px,6vw,64px);border-top:1px solid var(--line)}
+.case:first-of-type{border-top:0;margin-top:clamp(28px,4vw,40px);padding-top:0}
+.case-head{display:grid;gap:12px;max-width:72ch}
+.case-head h3{font-size:var(--s3);font-weight:800}
+.case-head p{color:var(--muted);font-size:var(--s1)}
+.case-body{display:grid;grid-template-columns:minmax(0,250px) minmax(0,1fr);gap:clamp(20px,4vw,48px);margin-top:28px;align-items:start}
+@media (max-width:860px){.case-body{grid-template-columns:minmax(0,1fr)}}
+.meta{position:sticky;top:76px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:14px;font-size:.92rem}
+@media (max-width:860px){.meta{position:static}}
+.meta dt{font:600 .7rem/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.meta dd{margin:4px 0 0}
+.steps{display:grid;gap:34px;min-width:0}
+.step{display:grid;gap:12px;min-width:0}
+.step h4{font-size:var(--s1)}
+.step ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.step li::marker{color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.kpi b{display:block;font:800 var(--s3)/1.05 var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi span{display:block;font-size:var(--s-1);color:var(--muted);margin-top:6px;line-height:1.35}
+pre.code{margin:0;overflow-x:auto;background:var(--brand);color:var(--on-brand);border-radius:8px;padding:16px 18px;font:400 .84rem/1.6 var(--f-mono)}
+pre.code .c{color:var(--on-brand-muted)}
+pre.code .k{color:var(--accent)}
+figure{margin:0}
+.shot{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:8px}
+.shot img{display:block;width:100%;height:auto;border-radius:4px}
+.shot figcaption{font-size:var(--s-1);color:#4E5B69;padding:0 4px 2px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.callout{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.note{font-size:var(--s-1);color:var(--muted)}
+
+/* Aperçu des données */
+.dataview{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
+.dv-tabs{display:flex;gap:2px;overflow-x:auto;background:var(--sunk);padding:6px 6px 0;scrollbar-width:thin}
+.dv-tabs button{font:600 .82rem/1 var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:6px 6px 0 0;padding:10px 14px;cursor:pointer;white-space:nowrap}
+.dv-tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)}
+.dv-tabs button:hover{color:var(--ink)}
+.dv-panel{padding:14px 16px 16px;display:grid;gap:10px;min-width:0}
+.dv-meta{font-size:var(--s-1);color:var(--muted)}
+.dv-meta .mono{color:var(--ink)}
+.dt-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+.dt{border-collapse:collapse;font:400 .8rem/1.4 var(--f-mono);width:100%}
+.dt th,.dt td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.dt th{background:var(--sunk);color:var(--muted);font-weight:500}
+.dt tr:last-child td{border-bottom:0}
+.dt td.n{text-align:right;font-variant-numeric:tabular-nums}
+.dt td.nan{color:var(--accent-ink)}
+.dv-note{font-size:var(--s-1);color:var(--muted)}
+
+/* Graphiques */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:10px}
+.chart svg{width:100%;height:auto;display:block}
+.chart figcaption{font-size:var(--s-1);color:var(--muted)}
+.chart .lbl{fill:var(--ink);font:500 12.5px var(--f-body)}
+.chart .val{fill:var(--muted);font:500 12px var(--f-mono)}
+.chart .axis{fill:var(--muted);font:500 11px var(--f-mono)}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .bar{fill:var(--c3)}
+.chart .bar.hi{fill:var(--accent)}
+.chart .bar.top{fill:var(--c1)}
+.chart .s1{fill:var(--c1)} .chart .s2{fill:var(--c2)} .chart .s3{fill:var(--c3)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:var(--s-1);color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* Suite */
+.learn{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.learn div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.learn b{display:block;font-family:var(--f-display);font-size:var(--s1);margin-bottom:6px}
+.learn span{color:var(--muted)}
+.map-title{font-size:var(--s1);margin:34px 0 12px}
+.map-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.map{width:100%;border-collapse:collapse;min-width:600px}
+.map th,.map td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.map thead th{font:600 .75rem/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--sunk)}
+.map tbody th{font-family:var(--f-display);white-space:nowrap}
+.map tr:last-child td,.map tr:last-child th{border-bottom:0}
+.map td.fab{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
+
+/* Parcours */
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.timeline li:last-child{border-bottom:0}
+.timeline .when{font:500 .85rem/1.5 var(--f-mono);color:var(--muted)}
+.timeline h3{font-size:var(--s1)}
+.timeline .org{color:var(--accent-ink);font-weight:600;font-size:.92rem;margin-top:2px}
+.timeline p{color:var(--muted);margin-top:6px}
+@media (max-width:600px){.timeline li{grid-template-columns:minmax(0,1fr);gap:4px}}
+
+/* Contact */
+.contact{background:var(--brand);color:var(--on-brand);border-radius:14px;padding:clamp(24px,5vw,48px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:820px){.contact{grid-template-columns:minmax(0,1fr)}}
+.contact h2{font-size:var(--s4);font-weight:800}
+.contact p{color:var(--on-brand-muted);margin-top:10px;max-width:50ch}
+.coord{display:grid;gap:10px}
+.coord div{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:color-mix(in srgb,var(--on-brand) 7%,transparent);border:1px solid color-mix(in srgb,var(--on-brand) 16%,transparent);border-radius:8px;padding:10px 12px}
+.coord span{font:500 .95rem/1.3 var(--f-mono);user-select:all;word-break:break-all}
+.coord button{font:600 .8rem/1 var(--f-body);background:var(--accent);color:#1A1406;border:0;border-radius:6px;padding:8px 10px;cursor:pointer}
+footer{padding-block:28px 40px;color:var(--muted);font-size:var(--s-1)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+</style>
+</head>
+<body>
+
+
+<nav class="nav" aria-label="Navigation principale">
+  <div class="wrap">
+    <a class="brandmark" href="#top">M<span>.</span>Senghor</a>
+    <ul>
+      <li class="hide-sm"><a class="l" href="#apropos">À propos</a></li>
+      <li><a class="l" href="#services">Services</a></li>
+      <li><a class="l" href="#afrimarket">E-commerce</a></li>
+      <li><a class="l" href="#projets">Projets</a></li>
+      <li class="hide-sm"><a class="l" href="#parcours">Parcours</a></li>
+      <li><a class="l" href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Portfolio · Data Analyst</p>
+      <h1>Mouhammad Senghor</h1>
+      <p class="role">Data Analyst</p>
+      <p class="lead">J'analyse des données commerciales et publiques pour en tirer des indicateurs utiles, expliquer les écarts et faciliter la prise de décision.</p>
+      <p class="where">Roanne (42) · mobilité Auvergne-Rhône-Alpes · permis B</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#projets">Découvrir mes projets</a>
+        <a class="btn btn-ghost" href="#contact">Me contacter</a>
+      </div>
+    </div>
+    <aside class="fiche" aria-label="En bref">
+      <h2>En bref</h2>
+      <dl>
+        <div><dt>Je recherche</dt><dd>Une alternance en data, à partir de maintenant</dd></div>
+        <div><dt>Formation</dt><dd>Data Analyst chez OpenClassrooms, titre RNCP niveau 6 (Bac+3/4)</dd></div>
+        <div><dt>Expérience</dt><dd>Six ans dans la vente, dont un an et demi dans l'e-commerce</dd></div>
+        <div><dt>Outils</dt><dd>SQL, Excel, Python, Power BI</dd></div>
+      </dl>
+    </aside>
+  </div>
+</header>
+
+<main>
+<section class="block" id="apropos">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">À propos</p>
+      <h2>Un profil data avec une culture métier</h2>
+    </div>
+    <div class="about">
+      <div class="prose">
+        <p>Après un cursus initial en informatique, j'ai complété mon parcours par la formation Data Analyst d'OpenClassrooms. J'y ai travaillé sur des projets en SQL, Excel et Python, de la préparation des données jusqu'à la présentation des résultats.</p>
+        <p>Avant la data, j'ai passé six ans dans la vente. Chez Afrimarket, un site e-commerce, je suivais déjà mes ventes dans Power BI pour savoir où concentrer mes efforts. Ce métier m'a appris à partir d'un besoin concret, à poser les bonnes questions et à expliquer simplement ce que disent les chiffres.</p>
+        <p>Aujourd'hui, je continue à me former, en particulier à l'IA et à l'automatisation, à travers des projets personnels.</p>
+      </div>
+      <div class="trio">
+        <div><b>Analyse</b>Nettoyage, jointures, agrégations et contrôles</div>
+        <div><b>Outils</b>SQL, Excel, Python (pandas), Power BI</div>
+        <div><b>Restitution</b>Indicateurs, graphiques, rapports et recommandations</div>
+      </div>
+    </div>
+    <div class="method">
+      <h3>Ma façon de travailler</h3>
+      <p>Je commence toujours par vérifier la structure et la qualité des données. Ensuite je construis les indicateurs, je les confronte à la question posée, et je termine par une restitution simple : ce qui compte, pourquoi, et ce qu'on peut en faire.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Mes services</p>
+      <h2>Ce que je peux faire avec vos données</h2>
+      <p>Quatre étapes que je pratique dans mes projets. Chaque carte renvoie à un exemple concret.</p>
+    </div>
+    <div class="services">
+      <article class="svc">
+        <h3>Intégration des données</h3>
+        <p>Je rassemble des fichiers qui n'ont pas été prévus pour fonctionner ensemble : un export d'ERP, le catalogue d'un site, des CSV, des référentiels publics. Je cherche la bonne clé pour les relier et je vérifie qu'aucune ligne ne se perd en route.</p>
+        <div class="chips"><span class="chip">pandas</span><span class="chip">SQL</span><span class="chip">Excel</span></div>
+        <div class="proof"><span>Exemples :</span><a href="#p-bottleneck">ERP et site web</a><a href="#p-immo">Base immobilière</a></div>
+      </article>
+      <article class="svc">
+        <h3>Nettoyage des données</h3>
+        <p>Avant de calculer quoi que ce soit, je regarde ce qui cloche : doublons, cases vides, prix négatifs, statuts qui contredisent les quantités. Je corrige avec des règles écrites, pour pouvoir refaire le traitement à l'identique.</p>
+        <div class="chips"><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">SQL</span></div>
+        <div class="proof"><span>Exemples :</span><a href="#p-bottleneck">ERP et site web</a><a href="#p-fao">Étude FAO</a></div>
+      </article>
+      <article class="svc">
+        <h3>Modélisation et tableaux de bord</h3>
+        <p>J'organise les données en tables reliées, avec un dictionnaire qui explique chaque champ. Ensuite je construis les indicateurs dont l'équipe a besoin : chiffre d'affaires, panier moyen, taux de conversion, prix au m².</p>
+        <div class="chips"><span class="chip">SQLite</span><span class="chip">Excel</span><span class="chip">Power BI</span></div>
+        <div class="proof"><span>Exemples :</span><a href="#p-immo">Base immobilière</a><a href="#p-assurance">Assurance</a><a href="#p-ecommerce">E-commerce</a></div>
+      </article>
+      <article class="svc">
+        <h3>Communication</h3>
+        <p>Je présente les résultats à des personnes qui n'ont pas le temps de lire un tableau de 600 lignes : quelques graphiques clairs, un message principal et des pistes d'action. Mes années de vente m'aident beaucoup sur ce point.</p>
+        <div class="chips"><span class="chip">Rapports</span><span class="chip">Présentations</span><span class="chip">Power BI</span></div>
+        <div class="proof"><span>Exemples :</span><a href="#afrimarket">Afrimarket</a><a href="#p-ecommerce">E-commerce</a><a href="#p-fao">Étude FAO</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="afrimarket">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Expérience e-commerce · 2017-2018</p>
+      <h2>Chez Afrimarket, mes premiers rapports Power BI</h2>
+      <p>Avant de me former à la data, je m'en servais déjà pour vendre.</p>
+    </div>
+    <div class="xp">
+      <div class="story">
+        <div>
+          <h3>Le contexte</h3>
+          <p>Afrimarket était une start-up française de e-commerce. Le principe : une personne installée en France commande en ligne des produits (courses alimentaires, produits du quotidien, high-tech) qui sont livrés à sa famille en Côte d'Ivoire, au Sénégal, au Cameroun, au Bénin ou au Togo.</p>
+          <p>Une partie des clients achetait peu en ligne et passait par l'équipe commerciale. J'en faisais partie, comme commercial sédentaire, avec mon portefeuille de clients et un objectif de 15 000 € par mois.</p>
+        </div>
+        <div>
+          <h3>Ce que j'ai construit</h3>
+          <p>Pour savoir où mettre mon énergie, j'ai construit des rapports Power BI qui répondaient à trois questions. Dans quels pays vendions-nous le plus ? Quels produits partaient le mieux ? Comment se comportaient nos clients ? Concrètement, je suivais le chiffre d'affaires et les commandes par pays de livraison, les ventes par catégorie, le panier moyen et la fidélité des clients.</p>
+        </div>
+        <div>
+          <h3>Ce que j'ai proposé</h3>
+          <p>Ces rapports m'ont servi à proposer un plan commercial autour de deux idées. D'abord, préparer les temps forts : la Tabaski, le Ramadan, la fin d'année ou la rentrée scolaire sont des périodes importantes pour les familles, et il fallait relancer les clients et préparer les offres quelques semaines avant. Ensuite, développer les ventes additionnelles, en proposant au bon moment un produit qui complète la commande pour faire monter le panier.</p>
+        </div>
+        <div class="result">
+          <b>+10 à 20 %</b>
+          <p>C'est l'écart avec lequel j'ai régulièrement dépassé mon objectif mensuel de 15 000 €.</p>
+        </div>
+      </div>
+      <figure class="tree">
+        <svg viewBox="0 0 560 430" role="img" aria-labelledby="tree-t tree-d">
+          <title id="tree-t">La logique de mes rapports Afrimarket</title>
+          <desc id="tree-d">Le chiffre d'affaires se décompose en nombre de commandes multiplié par le panier moyen. Les commandes dépendent du nombre de clients actifs et de leur fréquence d'achat. Les temps forts agissent sur la fréquence, les ventes additionnelles sur le panier moyen. Les rapports croisent ces indicateurs par pays, par catégorie et par client.</desc>
+          <g class="node"><rect x="190" y="14" width="180" height="52" rx="8"/><text x="280" y="38" text-anchor="middle">Chiffre d'affaires</text><text class="sub" x="280" y="55" text-anchor="middle">objectif 15 000 € / mois</text></g>
+          <path class="edge" d="M280 66 V92 M140 92 H420 M140 92 V112 M420 92 V112"/>
+          <g class="node"><rect x="40" y="112" width="200" height="52" rx="8"/><text x="140" y="136" text-anchor="middle">Nombre de commandes</text><text class="sub" x="140" y="153" text-anchor="middle">par pays de livraison</text></g>
+          <text class="op" x="280" y="144" text-anchor="middle">×</text>
+          <g class="node"><rect x="320" y="112" width="200" height="52" rx="8"/><text x="420" y="136" text-anchor="middle">Panier moyen</text><text class="sub" x="420" y="153" text-anchor="middle">par catégorie de produits</text></g>
+          <path class="edge" d="M140 164 V188 M70 188 H210 M70 188 V206 M210 188 V206"/>
+          <g class="node"><rect x="10" y="206" width="120" height="52" rx="8"/><text x="70" y="230" text-anchor="middle">Clients actifs</text><text class="sub" x="70" y="247" text-anchor="middle">portefeuille</text></g>
+          <text class="op" x="140" y="238" text-anchor="middle">×</text>
+          <g class="node"><rect x="150" y="206" width="120" height="52" rx="8"/><text x="210" y="230" text-anchor="middle">Fréquence d'achat</text><text class="sub" x="210" y="247" text-anchor="middle">fidélité</text></g>
+          <g class="lever"><rect x="120" y="318" width="180" height="46" rx="23"/><text x="210" y="346" text-anchor="middle">Temps forts</text></g>
+          <path class="edge-l" d="M210 318 V258"/>
+          <g class="lever"><rect x="330" y="318" width="180" height="46" rx="23"/><text x="420" y="346" text-anchor="middle">Ventes additionnelles</text></g>
+          <path class="edge-l" d="M420 318 V164"/>
+          <g class="dim"><text x="280" y="408" text-anchor="middle">Vues : pays · catégorie · client</text></g>
+        </svg>
+        <figcaption>La logique de mes rapports : décomposer le chiffre d'affaires pour voir sur quoi agir. En pointillés, les deux leviers de mon plan commercial. Je ne peux pas montrer les rapports eux-mêmes, les données appartiennent à l'entreprise.</figcaption>
+      </figure>
+    </div>
+    <div class="bridge">
+      <strong>Ce que j'en ai retenu</strong>
+      <p>Un rapport est utile quand il aide quelqu'un à décider quoi faire. C'est le fil conducteur de toutes mes analyses, que ce soit pour un site e-commerce ou pour un réseau de magasins.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="projets">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Mes projets</p>
+      <h2>Six projets, racontés étape par étape</h2>
+      <p>Pour chacun, je montre les données de départ, ce que j'en ai fait et ce que j'en ai tiré. Les chiffres viennent directement de mes fichiers, de mes requêtes et de mes notebooks.</p>
+    </div>
+
+    <div class="index-wrap">
+      <table class="index">
+        <thead><tr><th>Projet</th><th>Outils</th><th>Données de départ</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#p-bottleneck">Rapprocher le stock et le site d'un caviste</a></td><td>Python, pandas</td><td>3 fichiers Excel, 3 163 lignes</td></tr>
+          <tr><td><a href="#p-ecommerce">Le rapport mensuel d'un site e-commerce</a></td><td>Excel</td><td>660 transactions et 6 mois de chiffre d'affaires</td></tr>
+          <tr><td><a href="#p-immo">Une base immobilière en SQL</a></td><td>SQL, SQLite</td><td>34 169 ventes DVF et 3 référentiels</td></tr>
+          <tr><td><a href="#p-assurance">Les contrats d'un assureur habitation</a></td><td>SQL</td><td>30 335 contrats et 38 916 communes</td></tr>
+          <tr><td><a href="#p-fao">La sous-nutrition dans le monde</a></td><td>Python, pandas</td><td>4 fichiers FAO, 19 714 lignes</td></tr>
+          <tr><td><a href="#p-aiagent">AIAgent, mon agent IA en local</a></td><td>Python</td><td>Projet logiciel personnel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Bottleneck -->
+    <article class="case" id="p-bottleneck">
+      <header class="case-head">
+        <p class="eyebrow">Python · pandas</p>
+        <h3>Rapprocher le stock d'un caviste et le catalogue de son site</h3>
+        <p>Bottleneck vend du vin en ligne. Son stock est suivi dans un ERP, ses ventes sur un site WordPress, et les deux n'utilisent pas le même identifiant produit. Avant toute analyse, il fallait les faire parler ensemble.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet de la formation OpenClassrooms</dd></div>
+          <div><dt>Outils</dt><dd>Python, pandas, NumPy, Jupyter</dd></div>
+          <div><dt>Fichiers</dt><dd>erp.xlsx, web.xlsx, liaison.xlsx</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>L'objectif</h4>
+            <p>Relier le stock, les prix et les ventes de chaque produit, pour pouvoir ensuite calculer le chiffre d'affaires par article, la rotation des stocks et les marges.</p>
+          </section>
+          <section class="step">
+            <h4>Les données</h4>
+            <p>Trois fichiers : l'export de l'ERP (825 produits), l'export du site (1 513 lignes) et une table de liaison qui fait le lien entre l'identifiant de l'ERP et le code article du site.</p>
+            <div class="dataview"><div class="dv-tabs" role="tablist" aria-label="Fichiers du projet"><button type="button" role="tab" id="dvt-bottleneck-0" aria-controls="dv-bottleneck-0" aria-selected="true" tabindex="0">ERP</button><button type="button" role="tab" id="dvt-bottleneck-1" aria-controls="dv-bottleneck-1" aria-selected="false" tabindex="-1">Site web</button><button type="button" role="tab" id="dvt-bottleneck-2" aria-controls="dv-bottleneck-2" aria-selected="false" tabindex="-1">Liaison</button><button type="button" role="tab" id="dvt-bottleneck-3" aria-controls="dv-bottleneck-3" aria-selected="false" tabindex="-1">Écarts trouvés</button></div><div class="dv-panel" role="tabpanel" id="dv-bottleneck-0" aria-labelledby="dvt-bottleneck-0"><p class="dv-meta">Extrait de <span class="mono">erp.xlsx</span> · 825 lignes × 6 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>product_id</th><th>onsale_web</th><th>price</th><th>stock_quantity</th><th>stock_status</th><th>purchase_price</th></tr></thead><tbody><tr><td>3847</td><td class="n">1</td><td class="n">24.2</td><td class="n">16</td><td>instock</td><td class="n">12.88</td></tr><tr><td>3849</td><td class="n">1</td><td class="n">34.3</td><td class="n">10</td><td>instock</td><td class="n">17.54</td></tr><tr><td>3850</td><td class="n">1</td><td class="n">20.8</td><td class="n">0</td><td>outofstock</td><td class="n">10.64</td></tr><tr><td>4032</td><td class="n">1</td><td class="n">14.1</td><td class="n">26</td><td>instock</td><td class="n">6.92</td></tr><tr><td>4039</td><td class="n">1</td><td class="n">46</td><td class="n">3</td><td>outofstock</td><td class="n">23.77</td></tr></tbody></table></div></div><div class="dv-panel" role="tabpanel" id="dv-bottleneck-1" aria-labelledby="dvt-bottleneck-1" hidden><p class="dv-meta">Extrait de <span class="mono">web.xlsx</span> · 1 513 lignes × 29 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>sku</th><th>post_title</th><th>product_type</th><th>total_sales</th><th>post_type</th></tr></thead><tbody><tr><td>14692</td><td>Château Fonréaud Bordeaux Blanc Le Cygne 2016</td><td>Vin</td><td class="n">5</td><td>product</td></tr><tr><td>15328</td><td>Agnès Levet Côte Rôtie Maestria 2017</td><td>Vin</td><td class="n">2</td><td>product</td></tr><tr><td>16269</td><td>Argentine Mendoza Alamos Chardonnay 2019</td><td>Vin</td><td class="n">12</td><td>attachment</td></tr><tr><td>16269</td><td>Argentine Mendoza Alamos Chardonnay 2019</td><td>Vin</td><td class="n">12</td><td>product</td></tr></tbody></table></div><p class="dv-note">5 colonnes affichées. L’article 16269 apparaît deux fois : une ligne « product » et une ligne « attachment » (son image).</p></div><div class="dv-panel" role="tabpanel" id="dv-bottleneck-2" aria-labelledby="dvt-bottleneck-2" hidden><p class="dv-meta">Extrait de <span class="mono">liaison.xlsx</span> · 825 lignes × 2 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>id_web</th><th>product_id</th></tr></thead><tbody><tr><td>15298</td><td>3847</td></tr><tr><td>15296</td><td>3849</td></tr><tr><td>15300</td><td>3850</td></tr><tr><td class="nan">NaN</td><td>4055</td></tr><tr><td class="nan">NaN</td><td>4090</td></tr></tbody></table></div><p class="dv-note">91 produits n’ont pas d’identifiant web (NaN).</p></div><div class="dv-panel" role="tabpanel" id="dv-bottleneck-3" aria-labelledby="dvt-bottleneck-3" hidden><p class="dv-meta">Extrait de <span class="mono">erp.xlsx</span> · 4 lignes en écart</p><div class="dt-wrap"><table class="dt"><thead><tr><th>product_id</th><th>stock_quantity</th><th>stock_status</th><th>problème</th></tr></thead><tbody><tr><td>4039</td><td class="n">3</td><td>outofstock</td><td>quantité 3 mais « outofstock »</td></tr><tr><td>4885</td><td class="n">0</td><td>instock</td><td>quantité 0 mais « instock »</td></tr><tr><td>4973</td><td class="n">-10</td><td>outofstock</td><td>stock négatif</td></tr><tr><td>5700</td><td class="n">-1</td><td>outofstock</td><td>stock négatif</td></tr></tbody></table></div><p class="dv-note">Le statut de stock ne correspond pas à la quantité.</p></div></div>
+          </section>
+          <section class="step">
+            <h4>Le nettoyage</h4>
+            <p>J'ai commencé par l'ERP. En comparant le statut de stock à la quantité, j'ai trouvé 4 produits incohérents, par exemple un article noté « en rupture » alors qu'il en restait 3. J'ai donc recalculé le statut à partir de la quantité. J'ai aussi repéré 3 prix et 2 stocks négatifs, que j'ai corrigés après vérification.</p>
+            <pre class="code"><span class="c"># Le statut de stock doit découler de la quantité</span>
+df_erp[<span class="k">"stock_status_2"</span>] = np.where(df_erp[<span class="k">"stock_quantity"</span>] == 0,
+                                    <span class="k">"outofstock"</span>, <span class="k">"instock"</span>)
+df_erp.query(<span class="k">"stock_status != stock_status_2"</span>)   <span class="c"># 4 produits en écart</span></pre>
+            <p>Côté site, 85 lignes n'avaient pas de code article, dont 83 complètement vides. Je les ai supprimées, avec les colonnes vides. J'ai ensuite remarqué que presque chaque produit apparaissait deux fois : une ligne pour la fiche produit et une ligne pour son image. Enfin, la table de liaison m'a montré que 91 produits de l'ERP n'avaient pas d'équivalent sur le site.</p>
+          </section>
+          <section class="step">
+            <h4>La suite</h4>
+            <p>Une fois les trois fichiers fusionnés, je calculerai le chiffre d'affaires par produit, je repérerai les 20 % d'articles qui font 80 % des ventes, puis j'analyserai la rotation des stocks et les marges par type de produit.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- E-commerce -->
+    <article class="case" id="p-ecommerce">
+      <header class="case-head">
+        <p class="eyebrow">Excel</p>
+        <h3>Le rapport mensuel des ventes d'un site e-commerce</h3>
+        <p>L'équipe marketing voulait faire le point sur février : comment évoluent les ventes, qui sont les meilleurs clients et comment ils achètent.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet de la formation OpenClassrooms</dd></div>
+          <div><dt>Outils</dt><dd>Excel : tableaux croisés, SOMME.SI, NB.SI, graphiques</dd></div>
+          <div><dt>Livrables</dt><dd>Un classeur Excel et un rapport de 7 pages</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>Les données</h4>
+            <p>Les 660 transactions de février des clients affiliés, avec pour chacune le client, le temps passé avant l'achat, le montant et la catégorie. J'avais aussi le chiffre d'affaires des cinq mois précédents.</p>
+            <div class="dataview"><div class="dv-tabs" role="tablist" aria-label="Fichiers du projet"><button type="button" role="tab" id="dvt-ecommerce-0" aria-controls="dv-ecommerce-0" aria-selected="true" tabindex="0">Transactions de février</button><button type="button" role="tab" id="dvt-ecommerce-1" aria-controls="dv-ecommerce-1" aria-selected="false" tabindex="-1">Client × catégorie</button><button type="button" role="tab" id="dvt-ecommerce-2" aria-controls="dv-ecommerce-2" aria-selected="false" tabindex="-1">CA mensuel</button></div><div class="dv-panel" role="tabpanel" id="dv-ecommerce-0" aria-labelledby="dvt-ecommerce-0"><p class="dv-meta">Extrait de <span class="mono">DATA Février (clients affiliés)</span> · 660 transactions × 4 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>ID client</th><th>Temps d&#x27;achat</th><th>Montant</th><th>Categorie</th></tr></thead><tbody><tr><td>26</td><td class="n">9.68</td><td class="n">132.73</td><td>nourriture</td></tr><tr><td>15</td><td class="n">12.6</td><td class="n">120.86</td><td>nourriture</td></tr><tr><td>3</td><td class="n">8.93</td><td class="n">118.54</td><td>bien de conso.</td></tr><tr><td>51</td><td class="n">11.5</td><td class="n">118.49</td><td>nourriture</td></tr><tr><td>32</td><td class="n">8.8</td><td class="n">115.37</td><td>nourriture</td></tr></tbody></table></div><p class="dv-note">Temps d’achat en minutes, montant en euros.</p></div><div class="dv-panel" role="tabpanel" id="dv-ecommerce-1" aria-labelledby="dvt-ecommerce-1" hidden><p class="dv-meta">Extrait de <span class="mono">Tableau Client x Catégorie</span> · tableau croisé, 60+ clients</p><div class="dt-wrap"><table class="dt"><thead><tr><th>ID client</th><th>Conso. : montant</th><th>Conso. : achats</th><th>Nourriture : montant</th><th>Nourriture : achats</th><th>Total montant</th><th>Total achats</th></tr></thead><tbody><tr><td>1</td><td class="n">201.41</td><td class="n">4</td><td class="n">233.41</td><td class="n">5</td><td class="n">434.82</td><td class="n">9</td></tr><tr><td>2</td><td class="n">142.66</td><td class="n">2</td><td class="n">728.97</td><td class="n">10</td><td class="n">871.63</td><td class="n">12</td></tr><tr><td>3</td><td class="n">360.62</td><td class="n">5</td><td class="n">275.13</td><td class="n">4</td><td class="n">635.75</td><td class="n">9</td></tr><tr><td>4</td><td class="n">138.84</td><td class="n">2</td><td class="n">272.82</td><td class="n">4</td><td class="n">411.66</td><td class="n">6</td></tr><tr><td>Total général</td><td class="n">14763.9</td><td class="n">247</td><td class="n">24898.82</td><td class="n">413</td><td class="n">39662.72</td><td class="n">660</td></tr></tbody></table></div><p class="dv-note">Extrait : 4 premiers clients et total général.</p></div><div class="dv-panel" role="tabpanel" id="dv-ecommerce-2" aria-labelledby="dvt-ecommerce-2" hidden><p class="dv-meta">Extrait de <span class="mono">Tableau de bord</span> · CA des clients affiliés, sept. à févr.</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Catégorie</th><th>SEPT</th><th>OCT</th><th>NOV</th><th>DEC</th><th>JAN</th><th>FEV</th><th>TOTAL</th></tr></thead><tbody><tr><td>bien de conso.</td><td class="n">10543</td><td class="n">11458</td><td class="n">13520</td><td class="n">14023</td><td class="n">14983</td><td class="n">14763.9</td><td class="n">79290.9</td></tr><tr><td>nourriture</td><td class="n">13855</td><td class="n">16052</td><td class="n">16797</td><td class="n">17582</td><td class="n">18216</td><td class="n">24898.82</td><td class="n">107400.82</td></tr><tr><td>high tech</td><td class="n">3002</td><td class="n">3769</td><td class="n">4230</td><td class="n">4341</td><td class="n">2713</td><td class="n">0</td><td class="n">18055</td></tr><tr><td>TOTAL</td><td class="n">27400</td><td class="n">31279</td><td class="n">34547</td><td class="n">35946</td><td class="n">35912</td><td class="n">39662.72</td><td class="n">204746.72</td></tr></tbody></table></div><p class="dv-note">En euros.</p></div></div>
+          </section>
+          <section class="step">
+            <h4>La préparation</h4>
+            <p>J'ai regroupé les ventes par catégorie et par mois avec SOMME.SI, compté les achats avec NB.SI, puis construit un tableau croisé client par catégorie pour classer les dix meilleurs clients. Pour étudier le comportement d'achat, j'ai séparé les achats rapides (moins de 4 minutes) des achats longs (plus de 9 min 30).</p>
+          </section>
+          <section class="step">
+            <h4>Les chiffres</h4>
+            <div class="kpis">
+              <div class="kpi"><b>39 663 €</b><span>de chiffre d'affaires en février</span></div>
+              <div class="kpi"><b>+45 %</b><span>par rapport à septembre</span></div>
+              <div class="kpi"><b>62,8 %</b><span>des ventes viennent de l'alimentaire</span></div>
+              <div class="kpi"><b>60,10 €</b><span>de panier moyen</span></div>
+            </div>
+            <figure class="chart"><svg viewBox="0 0 640 286" role="img" aria-labelledby="ce-t"><title id="ce-t">Chiffre d'affaires mensuel des clients affiliés, par catégorie, de septembre à février</title><line class="grid" x1="58" x2="628" y1="246.0" y2="246.0"/><text class="axis" x="50" y="250.0" text-anchor="end">0</text><line class="grid" x1="58" x2="628" y1="191.0" y2="191.0"/><text class="axis" x="50" y="195.0" text-anchor="end">10 k€</text><line class="grid" x1="58" x2="628" y1="136.0" y2="136.0"/><text class="axis" x="50" y="140.0" text-anchor="end">20 k€</text><line class="grid" x1="58" x2="628" y1="81.0" y2="81.0"/><text class="axis" x="50" y="85.0" text-anchor="end">30 k€</text><line class="grid" x1="58" x2="628" y1="26.0" y2="26.0"/><text class="axis" x="50" y="30.0" text-anchor="end">40 k€</text><rect class="s1" x="81.5" y="169.8" width="48" height="76.2"><title>sept. · nourriture : 13 855 €</title></rect><rect class="s2" x="81.5" y="111.8" width="48" height="58.0"><title>sept. · bien de conso. : 10 543 €</title></rect><rect class="s3" x="81.5" y="95.3" width="48" height="16.5"><title>sept. · high tech : 3 002 €</title></rect><text class="val" x="105.5" y="88.3" text-anchor="middle">27 400</text><text class="axis" x="105.5" y="264" text-anchor="middle">sept.</text><rect class="s1" x="176.5" y="157.7" width="48" height="88.3"><title>oct. · nourriture : 16 052 €</title></rect><rect class="s2" x="176.5" y="94.7" width="48" height="63.0"><title>oct. · bien de conso. : 11 458 €</title></rect><rect class="s3" x="176.5" y="74.0" width="48" height="20.7"><title>oct. · high tech : 3 769 €</title></rect><text class="val" x="200.5" y="67.0" text-anchor="middle">31 279</text><text class="axis" x="200.5" y="264" text-anchor="middle">oct.</text><rect class="s1" x="271.5" y="153.6" width="48" height="92.4"><title>nov. · nourriture : 16 797 €</title></rect><rect class="s2" x="271.5" y="79.3" width="48" height="74.4"><title>nov. · bien de conso. : 13 520 €</title></rect><rect class="s3" x="271.5" y="56.0" width="48" height="23.3"><title>nov. · high tech : 4 230 €</title></rect><text class="val" x="295.5" y="49.0" text-anchor="middle">34 547</text><text class="axis" x="295.5" y="264" text-anchor="middle">nov.</text><rect class="s1" x="366.5" y="149.3" width="48" height="96.7"><title>déc. · nourriture : 17 582 €</title></rect><rect class="s2" x="366.5" y="72.2" width="48" height="77.1"><title>déc. · bien de conso. : 14 023 €</title></rect><rect class="s3" x="366.5" y="48.3" width="48" height="23.9"><title>déc. · high tech : 4 341 €</title></rect><text class="val" x="390.5" y="41.3" text-anchor="middle">35 946</text><text class="axis" x="390.5" y="264" text-anchor="middle">déc.</text><rect class="s1" x="461.5" y="145.8" width="48" height="100.2"><title>janv. · nourriture : 18 216 €</title></rect><rect class="s2" x="461.5" y="63.4" width="48" height="82.4"><title>janv. · bien de conso. : 14 983 €</title></rect><rect class="s3" x="461.5" y="48.5" width="48" height="14.9"><title>janv. · high tech : 2 713 €</title></rect><text class="val" x="485.5" y="41.5" text-anchor="middle">35 912</text><text class="axis" x="485.5" y="264" text-anchor="middle">janv.</text><rect class="s1" x="556.5" y="109.1" width="48" height="136.9"><title>févr. · nourriture : 24 899 €</title></rect><rect class="s2" x="556.5" y="27.9" width="48" height="81.2"><title>févr. · bien de conso. : 14 764 €</title></rect><text class="val" x="580.5" y="20.9" text-anchor="middle">39 663</text><text class="axis" x="580.5" y="264" text-anchor="middle">févr.</text></svg><div class="legend"><span><i class="s1" style="background:var(--c1)"></i>Alimentaire</span><span><i class="s2" style="background:var(--c2)"></i>Biens de consommation</span><span><i class="s3" style="background:var(--c3)"></i>High-tech</span></div><figcaption>Chiffre d'affaires des clients affiliés, de septembre à février, en euros. Graphique construit à partir du tableau de bord de mon classeur.</figcaption></figure>
+            <p>Le temps d'achat compte aussi. Les 47 achats faits en moins de 4 minutes rapportent 1 562,73 €, alors que les 91 achats de plus de 9 min 30 rapportent 7 577,32 €. Les clients qui prennent leur temps dépensent davantage.</p>
+            <div class="gallery">
+              <figure class="shot"><img src="img/ecom-ca-categorie.webp" alt="Histogramme empilé du chiffre d'affaires mensuel de tout le site par catégorie, de mars 2019 à février 2020 : le high-tech disparaît en février 2020, l'alimentaire progresse." loading="lazy" width="606" height="460"><figcaption>Tout le site : le high-tech s'arrête, l'alimentaire prend le relais.</figcaption></figure>
+              <figure class="shot"><img src="img/ecom-conversion.webp" alt="Courbe du taux de conversion du site, d'environ 11 % en avril 2019 à 5 % en février 2020." loading="lazy" width="592" height="444"><figcaption>Le taux de conversion passe d'environ 11 % à 5 % en dix mois.</figcaption></figure>
+              <figure class="shot"><img src="img/ecom-panier.webp" alt="Nuage de points du montant du panier en fonction du temps passé sur le site : le panier augmente avec le temps de visite." loading="lazy" width="583" height="460"><figcaption>Plus la visite dure, plus le panier est élevé.</figcaption></figure>
+            </div>
+            <p class="note">Ces trois graphiques portent sur l'ensemble du site. Ils étaient fournis avec le sujet et je les ai interprétés dans le rapport.</p>
+          </section>
+          <section class="step">
+            <h4>Ce que j'en ai conclu</h4>
+            <p>Le high-tech a été arrêté et c'est l'alimentaire qui porte la croissance. Sur l'ensemble du site, en revanche, le taux de conversion a été divisé par deux en dix mois : le site attire toujours des visiteurs, mais ils achètent de moins en moins.</p>
+            <p>J'ai donc proposé d'élargir l'offre alimentaire et les produits du quotidien, de travailler l'expérience d'achat pour faire remonter la conversion, et d'explorer de nouveaux canaux de vente.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- Immobilier -->
+    <article class="case" id="p-immo">
+      <header class="case-head">
+        <p class="eyebrow">SQL · SQLite</p>
+        <h3>Construire une base immobilière et l'interroger en SQL</h3>
+        <p>Laplace Immo, un réseau d'agences, voulait mieux connaître le marché pour estimer les prix de vente. Ma mission : créer la base de données à partir de sources publiques, puis répondre à douze questions en SQL.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet de la formation OpenClassrooms</dd></div>
+          <div><dt>Outils</dt><dd>SQLite, SQL Power Architect, Excel</dd></div>
+          <div><dt>Sources</dt><dd>DVF (data.gouv), INSEE, référentiel géographique</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>Les données</h4>
+            <p>Les ventes du premier semestre 2020, issues des Demandes de valeurs foncières (DVF), la population des communes (INSEE) et le référentiel géographique de data.gouv. Voici les quatre tables, telles qu'elles sont dans ma base.</p>
+            <div class="dataview"><div class="dv-tabs" role="tablist" aria-label="Fichiers du projet"><button type="button" role="tab" id="dvt-immo-0" aria-controls="dv-immo-0" aria-selected="true" tabindex="0">Ventes</button><button type="button" role="tab" id="dvt-immo-1" aria-controls="dv-immo-1" aria-selected="false" tabindex="-1">Bien</button><button type="button" role="tab" id="dvt-immo-2" aria-controls="dv-immo-2" aria-selected="false" tabindex="-1">Communes</button><button type="button" role="tab" id="dvt-immo-3" aria-controls="dv-immo-3" aria-selected="false" tabindex="-1">Region</button></div><div class="dv-panel" role="tabpanel" id="dv-immo-0" aria-labelledby="dvt-immo-0"><p class="dv-meta">Extrait de <span class="mono">table Ventes</span> · 34 169 lignes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Id_vente</th><th>Id_bien</th><th>Date_mutation</th><th>Valeur_fonciere</th></tr></thead><tbody><tr><td>1</td><td>2</td><td>2020-06-16</td><td class="n">9000000</td></tr><tr><td>2</td><td>4</td><td>2020-01-29</td><td class="n">8600000</td></tr><tr><td>3</td><td>6</td><td>2020-01-22</td><td class="n">8577713</td></tr><tr><td>4</td><td>8</td><td>2020-02-07</td><td class="n">7620000</td></tr></tbody></table></div></div><div class="dv-panel" role="tabpanel" id="dv-immo-1" aria-labelledby="dvt-immo-1" hidden><p class="dv-meta">Extrait de <span class="mono">table Bien</span> · 34 169 lignes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Id_bien</th><th>Code_departement_Code_commune</th><th>Type_local</th><th>Nombre_pieces_principales</th><th>Surface_Carrez_</th><th>Surface_reelle_</th></tr></thead><tbody><tr><td>2</td><td>75116</td><td>Appartement</td><td class="n">1</td><td>9,1</td><td class="n">10</td></tr><tr><td>4</td><td>91174</td><td>Appartement</td><td class="n">3</td><td class="n">64</td><td class="n">62</td></tr><tr><td>6</td><td>75107</td><td>Appartement</td><td class="n">7</td><td>20,55</td><td class="n">289</td></tr><tr><td>8</td><td>75117</td><td>Appartement</td><td class="n">2</td><td>42,77</td><td class="n">42</td></tr></tbody></table></div><p class="dv-note">Colonnes d’adresse masquées.</p></div><div class="dv-panel" role="tabpanel" id="dv-immo-2" aria-labelledby="dvt-immo-2" hidden><p class="dv-meta">Extrait de <span class="mono">table Communes</span> · 34 991 lignes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Code_departement_Code_commune</th><th>Code_departement</th><th>Code_commune</th><th>Commune</th><th>Reg_code</th><th>Pop_commune</th></tr></thead><tbody><tr><td>42002</td><td>42</td><td>2</td><td>Ailleux</td><td>84</td><td class="n">174</td></tr><tr><td>42003</td><td>42</td><td>3</td><td>Ambierle</td><td>84</td><td class="n">1950</td></tr><tr><td>42006</td><td>42</td><td>6</td><td>Apinac</td><td>84</td><td class="n">414</td></tr><tr><td>42007</td><td>42</td><td>7</td><td>Arcinges</td><td>84</td><td class="n">220</td></tr></tbody></table></div></div><div class="dv-panel" role="tabpanel" id="dv-immo-3" aria-labelledby="dvt-immo-3" hidden><p class="dv-meta">Extrait de <span class="mono">table Region</span> · 17 lignes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Reg_code</th><th>reg_nom</th><th>reg_pop</th></tr></thead><tbody><tr><td>11</td><td>Ile-de-France</td><td class="n">12384734</td></tr><tr><td>24</td><td>Centre-Val de Loire</td><td class="n">2632683</td></tr><tr><td>28</td><td>Normandie</td><td class="n">3396314</td></tr><tr><td>53</td><td>Bretagne</td><td class="n">3463439</td></tr></tbody></table></div></div></div>
+          </section>
+          <section class="step">
+            <h4>La modélisation</h4>
+            <p>J'ai d'abord écrit un dictionnaire des données : pour chaque champ, son type, sa longueur et ses règles. Puis j'ai découpé les données en quatre tables reliées, pour ne stocker chaque information qu'une seule fois. C'est la commune qui fait le lien entre un bien et sa région, grâce à une clé qui combine le code du département et celui de la commune.</p>
+            <figure class="shot"><img src="img/immo-schema.webp" alt="Schéma relationnel à quatre tables : Ventes reliée à Bien par Id_bien, Bien reliée à Communes par le code département et commune, Communes reliée à Region par Reg_code." loading="lazy" width="1400" height="625"><figcaption>Le schéma de la base : Ventes, Bien, Communes, Region.</figcaption></figure>
+            <p>Côté RGPD, j'ai retiré les colonnes sensibles et fixé une durée de conservation de cinq ans pour les données personnelles. Chaque analyse est enregistrée sous forme de vue, pour pouvoir la relancer sans réécrire la requête.</p>
+          </section>
+          <section class="step">
+            <h4>Une requête en exemple</h4>
+            <p>Pour compter les ventes d'appartements par région, il faut traverser les quatre tables :</p>
+            <pre class="code"><span class="k">SELECT</span> r.reg_nom, <span class="k">COUNT</span>(*) <span class="k">AS</span> nombre_ventes
+<span class="k">FROM</span> Ventes v
+<span class="k">JOIN</span> Bien b     <span class="k">ON</span> v.Id_bien = b.Id_bien
+<span class="k">JOIN</span> Communes c <span class="k">ON</span> b.Code_departement_Code_commune = c.Code_departement_Code_commune
+<span class="k">JOIN</span> Region r   <span class="k">ON</span> c.Reg_code = r.Reg_code
+<span class="k">WHERE</span> b.Type_local = <span class="k">'Appartement'</span>
+<span class="k">GROUP BY</span> r.reg_nom;</pre>
+            <figure class="chart"><svg viewBox="0 0 680 252" role="img" aria-labelledby="rg-t"><title id="rg-t">Ventes d'appartements au premier semestre 2020, huit premières régions</title><text class="lbl" x="0" y="23">Île-de-France</text><rect class="bar top" x="176" y="10" width="420.0" height="18" rx="3"/><text class="val" x="604.0" y="23">13 995</text><text class="lbl" x="0" y="53">Provence-Alpes-Côte d&#x27;Azur</text><rect class="bar " x="176" y="40" width="109.5" height="18" rx="3"/><text class="val" x="293.5" y="53">3 649</text><text class="lbl" x="0" y="83">Auvergne-Rhône-Alpes</text><rect class="bar hi" x="176" y="70" width="97.6" height="18" rx="3"/><text class="val" x="281.6" y="83">3 253</text><text class="lbl" x="0" y="113">Nouvelle-Aquitaine</text><rect class="bar " x="176" y="100" width="58.0" height="18" rx="3"/><text class="val" x="242.0" y="113">1 932</text><text class="lbl" x="0" y="143">Occitanie</text><rect class="bar " x="176" y="130" width="49.2" height="18" rx="3"/><text class="val" x="233.2" y="143">1 640</text><text class="lbl" x="0" y="173">Pays de la Loire</text><rect class="bar " x="176" y="160" width="40.7" height="18" rx="3"/><text class="val" x="224.7" y="173">1 357</text><text class="lbl" x="0" y="203">Hauts-de-France</text><rect class="bar " x="176" y="190" width="37.6" height="18" rx="3"/><text class="val" x="221.6" y="203">1 254</text><text class="lbl" x="0" y="233">Grand Est</text><rect class="bar " x="176" y="220" width="29.5" height="18" rx="3"/><text class="val" x="213.5" y="233">984</text></svg><figcaption>Résultat de la requête : les 8 premières régions sur 17, pour 31 378 ventes d'appartements au total. Auvergne-Rhône-Alpes en couleur.</figcaption></figure>
+          </section>
+          <section class="step">
+            <h4>Les chiffres</h4>
+            <div class="kpis">
+              <div class="kpi"><b>31 378</b><span>appartements vendus, soit 92 % des 34 169 ventes</span></div>
+              <div class="kpi"><b>12 111 €</b><span>le m² à Paris en moyenne, devant les Hauts-de-Seine (7 302 €)</span></div>
+              <div class="kpi"><b>+3,68 %</b><span>de ventes entre le 1er et le 2e trimestre 2020</span></div>
+              <div class="kpi"><b>3 253</b><span>appartements vendus en Auvergne-Rhône-Alpes, 3e région</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- Assurance -->
+    <article class="case" id="p-assurance">
+      <header class="case-head">
+        <p class="eyebrow">SQL</p>
+        <h3>Analyser les contrats d'un assureur habitation</h3>
+        <p>Un assureur voulait mieux connaître son portefeuille : quelles formules, quelles cotisations, et dans quelles régions.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet de la formation OpenClassrooms</dd></div>
+          <div><dt>Outils</dt><dd>SQLite, SQL Power Architect</dd></div>
+          <div><dt>Fichiers</dt><dd>Contrats et référentiel des communes (CSV)</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>Les données</h4>
+            <p>Deux fichiers CSV : les 30 335 contrats (logement, surface, formule, valeur des biens, cotisation…) et le référentiel des 38 916 communes de France avec leur département et leur région. Pour l'extrait, j'ai pris des contrats de la Loire.</p>
+            <div class="dataview"><div class="dv-tabs" role="tablist" aria-label="Fichiers du projet"><button type="button" role="tab" id="dvt-assurance-0" aria-controls="dv-assurance-0" aria-selected="true" tabindex="0">Contrats</button><button type="button" role="tab" id="dvt-assurance-1" aria-controls="dv-assurance-1" aria-selected="false" tabindex="-1">Référentiel</button></div><div class="dv-panel" role="tabpanel" id="dv-assurance-0" aria-labelledby="dvt-assurance-0"><p class="dv-meta">Extrait de <span class="mono">Contrat.csv</span> · 30 335 lignes × 16 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Contrat_ID</th><th>Code_dep_code_commune</th><th>Commune</th><th>Surface</th><th>Type_local</th><th>Occupation</th><th>Type_contrat</th><th>Formule</th><th>Valeur_declaree_biens</th><th>Prix_cotisation_mensuel</th></tr></thead><tbody><tr><td>109536</td><td>42094</td><td>FEURS</td><td class="n">39</td><td>Appartement</td><td>Proprietaire</td><td>Residence secondaire</td><td>Classique</td><td>0-25000</td><td class="n">17</td></tr><tr><td>109577</td><td>42071</td><td>LE COTEAU</td><td class="n">40</td><td>Appartement</td><td>Locataire</td><td>Residence principale</td><td>Classique</td><td>0-25000</td><td class="n">9</td></tr><tr><td>109571</td><td>42184</td><td>RIORGES</td><td class="n">78</td><td>Appartement</td><td>Proprietaire</td><td>Residence principale</td><td>Classique</td><td>0-25000</td><td class="n">12</td></tr><tr><td>109568</td><td>42187</td><td>ROANNE</td><td class="n">77</td><td>Appartement</td><td>Proprietaire</td><td>Mise en location</td><td>Integral</td><td>0-25000</td><td class="n">10</td></tr></tbody></table></div><p class="dv-note">Colonnes d’adresse masquées. Extrait : contrats de la Loire (42).</p></div><div class="dv-panel" role="tabpanel" id="dv-assurance-1" aria-labelledby="dvt-assurance-1" hidden><p class="dv-meta">Extrait de <span class="mono">Region.csv</span> · 38 916 lignes × 8 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Code_dep_code_commune</th><th>reg_code</th><th>reg_nom</th><th>dep_nom</th><th>com_nom_maj_court</th></tr></thead><tbody><tr><td>42071</td><td>84</td><td>Auvergne-Rhône-Alpes</td><td>Loire</td><td>LE COTEAU</td></tr><tr><td>42094</td><td>84</td><td>Auvergne-Rhône-Alpes</td><td>Loire</td><td>FEURS</td></tr><tr><td>42184</td><td>84</td><td>Auvergne-Rhône-Alpes</td><td>Loire</td><td>RIORGES</td></tr><tr><td>42187</td><td>84</td><td>Auvergne-Rhône-Alpes</td><td>Loire</td><td>ROANNE</td></tr></tbody></table></div><p class="dv-note">Les mêmes communes que dans l’extrait des contrats : la clé Code_dep_code_commune relie chaque contrat à sa région.</p></div></div>
+          </section>
+          <section class="step">
+            <h4>La base</h4>
+            <p>J'ai d'abord repéré le type et la taille de chaque colonne pour remplir le dictionnaire des données. J'ai ensuite complété le schéma dans SQL Power Architect, généré le code de création des tables et chargé les fichiers nettoyés dans SQLite.</p>
+            <figure class="shot"><img src="img/assurance-schema.webp" alt="Schéma relationnel reliant la table Contrat à la table Region par la clé code département et commune, à côté du script SQL de création des tables." loading="lazy" width="1400" height="446"><figcaption>Le schéma et le script de création des tables.</figcaption></figure>
+          </section>
+          <section class="step">
+            <h4>Les requêtes</h4>
+            <p>Douze requêtes, des plus simples (filtrer, compter, calculer une moyenne) aux plus complètes (jointures, regroupements avec HAVING). Par exemple, pour trouver les communes qui comptent au moins 150 contrats :</p>
+            <pre class="code"><span class="k">SELECT</span> Commune, <span class="k">COUNT</span>(*) <span class="k">AS</span> nombre_contrats
+<span class="k">FROM</span> Contrat
+<span class="k">GROUP BY</span> Commune
+<span class="k">HAVING</span> <span class="k">COUNT</span>(*) &gt;= 150;   <span class="c">-- 20 communes</span></pre>
+          </section>
+          <section class="step">
+            <h4>Les chiffres</h4>
+            <div class="kpis">
+              <div class="kpi"><b>30 335</b><span>contrats analysés</span></div>
+              <div class="kpi"><b>19,33 €</b><span>de cotisation mensuelle moyenne</span></div>
+              <div class="kpi"><b>36,40 €</b><span>à Paris, la cotisation moyenne la plus élevée</span></div>
+              <div class="kpi"><b>84 %</b><span>des contrats couvrent une résidence principale</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- FAO -->
+    <article class="case" id="p-fao">
+      <header class="case-head">
+        <p class="eyebrow">Python · pandas</p>
+        <h3>Comprendre la sous-nutrition dans le monde</h3>
+        <p>Pour la FAO, l'agence des Nations unies pour l'alimentation, il fallait mesurer la sous-nutrition en 2017 et comprendre d'où viennent les écarts entre pays.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet de la formation OpenClassrooms</dd></div>
+          <div><dt>Outils</dt><dd>Python, pandas, Matplotlib, Seaborn</dd></div>
+          <div><dt>Fichiers</dt><dd>4 fichiers CSV de la FAO</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>Les données</h4>
+            <p>Quatre fichiers : la population par pays, le nombre de personnes sous-alimentées, la disponibilité alimentaire par produit et l'aide alimentaire reçue.</p>
+            <div class="dataview"><div class="dv-tabs" role="tablist" aria-label="Fichiers du projet"><button type="button" role="tab" id="dvt-fao-0" aria-controls="dv-fao-0" aria-selected="true" tabindex="0">Population</button><button type="button" role="tab" id="dvt-fao-1" aria-controls="dv-fao-1" aria-selected="false" tabindex="-1">Sous-nutrition</button><button type="button" role="tab" id="dvt-fao-2" aria-controls="dv-fao-2" aria-selected="false" tabindex="-1">Disponibilité</button><button type="button" role="tab" id="dvt-fao-3" aria-controls="dv-fao-3" aria-selected="false" tabindex="-1">Aide alimentaire</button></div><div class="dv-panel" role="tabpanel" id="dv-fao-0" aria-labelledby="dvt-fao-0"><p class="dv-meta">Extrait de <span class="mono">population.csv</span> · 1 416 lignes × 3 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Zone</th><th>Année</th><th>Valeur</th></tr></thead><tbody><tr><td>Afghanistan</td><td>2013</td><td class="n">32269.589</td></tr><tr><td>Afghanistan</td><td>2014</td><td class="n">33370.794</td></tr><tr><td>Afghanistan</td><td>2015</td><td class="n">34413.603</td></tr></tbody></table></div><p class="dv-note">Valeur en milliers d’habitants.</p></div><div class="dv-panel" role="tabpanel" id="dv-fao-1" aria-labelledby="dvt-fao-1" hidden><p class="dv-meta">Extrait de <span class="mono">sous_nutrition.csv</span> · 1 218 lignes × 3 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Zone</th><th>Année</th><th>Valeur</th></tr></thead><tbody><tr><td>Afghanistan</td><td>2012-2014</td><td class="n">8.6</td></tr><tr><td>Afghanistan</td><td>2013-2015</td><td class="n">8.8</td></tr><tr><td>Arménie</td><td>2012-2014</td><td>&lt;0.1</td></tr><tr><td>Arménie</td><td>2013-2015</td><td>&lt;0.1</td></tr></tbody></table></div><p class="dv-note">Valeur en millions de personnes, par période de 3 ans. Certaines valeurs sont du texte (« &lt;0.1 ») et doivent être converties.</p></div><div class="dv-panel" role="tabpanel" id="dv-fao-2" aria-labelledby="dvt-fao-2" hidden><p class="dv-meta">Extrait de <span class="mono">dispo_alimentaire.csv</span> · 15 605 lignes × 18 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Zone</th><th>Produit</th><th>Origine</th><th>Disponibilité alimentaire (Kcal/personne/jour)</th><th>Nourriture</th><th>Production</th><th>Exportations - Quantité</th></tr></thead><tbody><tr><td>France</td><td>Abats Comestible</td><td>animale</td><td class="n">18</td><td class="n">377</td><td class="n">453</td><td class="n">166</td></tr><tr><td>France</td><td>Agrumes, Autres</td><td>vegetale</td><td class="n">0</td><td class="n">7</td><td class="nan">NaN</td><td class="n">1</td></tr><tr><td>France</td><td>Alcool, non Comestible</td><td>vegetale</td><td class="nan">NaN</td><td class="nan">NaN</td><td class="n">575</td><td class="n">693</td></tr></tbody></table></div><p class="dv-note">7 colonnes affichées, quantités en milliers de tonnes.</p></div><div class="dv-panel" role="tabpanel" id="dv-fao-3" aria-labelledby="dvt-fao-3" hidden><p class="dv-meta">Extrait de <span class="mono">aide_alimentaire.csv</span> · 1 475 lignes × 4 colonnes</p><div class="dt-wrap"><table class="dt"><thead><tr><th>Pays bénéficiaire</th><th>Année</th><th>Produit</th><th>Valeur</th></tr></thead><tbody><tr><td>Afghanistan</td><td>2013</td><td>Autres non-céréales</td><td class="n">682</td></tr><tr><td>Afghanistan</td><td>2014</td><td>Autres non-céréales</td><td class="n">335</td></tr><tr><td>Afghanistan</td><td>2013</td><td>Blé et Farin</td><td class="n">39224</td></tr></tbody></table></div><p class="dv-note">Valeur en tonnes.</p></div></div>
+          </section>
+          <section class="step">
+            <h4>La préparation</h4>
+            <p>Les fichiers n'étaient pas directement compatibles. La sous-nutrition est donnée en millions de personnes, par périodes de trois ans, avec des valeurs écrites en texte comme « &lt;0.1 ». J'ai converti ces valeurs en nombres, ramené les unités en nombre de personnes et pris la période 2016-2018 comme référence pour 2017. J'ai ensuite relié les fichiers pays par pays.</p>
+          </section>
+          <section class="step">
+            <h4>Les chiffres</h4>
+            <div class="kpis">
+              <div class="kpi"><b>551,8 M</b><span>de personnes sous-alimentées en 2017, soit 7,31 % de la population</span></div>
+              <div class="kpi"><b>110 %</b><span>de la population mondiale pourrait être nourrie avec les calories disponibles</span></div>
+              <div class="kpi"><b>91 %</b><span>avec les seuls produits végétaux</span></div>
+              <div class="kpi"><b>48 %</b><span>de la population d'Haïti est sous-alimentée, le taux le plus élevé</span></div>
+            </div>
+            <div class="gallery">
+              <figure class="shot"><img src="img/fao-aide.webp" alt="Diagramme en barres horizontales des 10 pays ayant le plus bénéficié de l'aide alimentaire depuis 2013, la Syrie en tête." loading="lazy" width="1400" height="836"><figcaption>Les 10 pays qui ont reçu le plus d'aide depuis 2013, avec la Syrie en tête (1,86 million de tonnes).</figcaption></figure>
+              <figure class="shot"><img src="img/fao-dispo.webp" alt="Diagramme en barres de la répartition de la disponibilité alimentaire intérieure : nourriture, traitement, aliments pour animaux, autres utilisations, pertes, semences." loading="lazy" width="1400" height="646"><figcaption>À quoi sert la nourriture disponible : alimentation humaine, animale, transformation, pertes…</figcaption></figure>
+            </div>
+            <p class="note">Le calcul des 110 % repose sur un besoin de 2 500 kcal par personne et par jour.</p>
+          </section>
+          <section class="step">
+            <h4>Ce que j'en retiens</h4>
+            <p class="callout">En théorie, il y a assez de nourriture pour tout le monde. Le problème vient surtout de sa répartition et de son usage : 36 % des céréales servent à nourrir les animaux, et la Thaïlande exporte 83 % de son manioc alors que 9 % de sa population est sous-alimentée.</p>
+            <p>J'ai recommandé de concentrer l'aide sur les pays les plus touchés, de réduire les pertes grâce à de meilleures conditions de stockage et de transport, de réorienter une partie de l'alimentation animale vers la consommation humaine et de soutenir l'agriculture locale.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- AIAgent -->
+    <article class="case" id="p-aiagent">
+      <header class="case-head">
+        <p class="eyebrow">Python · projet personnel</p>
+        <h3>AIAgent, mon agent IA qui tourne en local</h3>
+        <p>Un projet personnel pour comprendre de l'intérieur comment fonctionne un agent IA : comment il prépare un plan, utilise des outils et vérifie son travail. Tout tourne sur mon ordinateur, avec des modèles open source.</p>
+      </header>
+      <div class="case-body">
+        <dl class="meta">
+          <div><dt>Contexte</dt><dd>Projet personnel, depuis 2026</dd></div>
+          <div><dt>Outils</dt><dd>Python, Ollama, Git, GitHub Actions</dd></div>
+        </dl>
+        <div class="steps">
+          <section class="step">
+            <h4>Ce que fait l'agent</h4>
+            <ul>
+              <li>Il prépare un plan et le fait valider avant d'agir, puis relie chaque étape à une preuve qu'elle a bien été faite.</li>
+              <li>Il utilise des outils encadrés : lire des fichiers, consulter l'historique Git, écrire de façon contrôlée, lancer des vérifications.</li>
+              <li>Il répartit le travail entre plusieurs modèles (un pour planifier, un pour exécuter, un de secours) et sait reprendre une session interrompue.</li>
+              <li>Il va chercher l'information dans ses sources avant de répondre.</li>
+            </ul>
+          </section>
+          <section class="step">
+            <h4>Comment je travaille dessus</h4>
+            <p>J'avance par petites étapes, chacune testée et documentée. Le projet compte aujourd'hui plus de 1 100 tests automatisés, lancés à chaque modification grâce à l'intégration continue sur GitHub. Ce sont les mêmes réflexes que je veux appliquer aux traitements de données : automatiser, tester, documenter.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="block" id="suite">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">La suite</p>
+      <h2>Ce que je veux apprendre en alternance</h2>
+      <p>L'alternance est pour moi l'occasion d'aller plus loin sur des outils que je connais encore peu, au contact d'une équipe et de vrais besoins.</p>
+    </div>
+    <div class="learn">
+      <div><b>Power BI en profondeur</b><span>Construire des modèles de données solides, des indicateurs fiables et des rapports que les équipes utilisent vraiment.</span></div>
+      <div><b>Les plateformes de données</b><span>Comprendre comment les données circulent de bout en bout dans un outil comme Microsoft Fabric : collecte automatique, transformation, stockage et partage.</span></div>
+      <div><b>Le pilotage commercial</b><span>Mettre mon expérience de la vente au service des indicateurs : chiffre d'affaires, panier moyen, fidélité, saisonnalité.</span></div>
+    </div>
+    <h3 class="map-title">Ce que je pratique déjà, et son équivalent dans Microsoft Fabric</h3>
+    <div class="map-wrap">
+      <table class="map">
+        <thead><tr><th>Étape</th><th>Dans mes projets</th><th>Dans Microsoft Fabric</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Collecte</th><td>Imports Excel et CSV, tables de liaison</td><td class="fab">Pipelines Data Factory et connecteurs</td></tr>
+          <tr><th scope="row">Transformation</th><td>Nettoyage avec pandas</td><td class="fab">Dataflows Gen2</td></tr>
+          <tr><th scope="row">Stockage</th><td>Base SQLite, vues SQL</td><td class="fab">Lakehouse, Warehouse, modèle sémantique</td></tr>
+          <tr><th scope="row">Indicateurs</th><td>Requêtes SQL, formules Excel</td><td class="fab">Mesures du modèle sémantique</td></tr>
+          <tr><th scope="row">Partage</th><td>Rapports et présentations</td><td class="fab">Rapports Power BI, espaces de travail et applications</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="parcours">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Parcours</p>
+      <h2>De l'informatique à la vente, puis à la data</h2>
+    </div>
+    <ol class="timeline" reversed>
+      <li><div class="when">Aujourd'hui</div><div><h3>Data Analyst en alternance</h3><p class="org">OpenClassrooms · titre RNCP niveau 6 (Bac+3/4)</p><p>Je recherche une entreprise pour préparer ce titre en alternance.</p></div></li>
+      <li><div class="when">2026</div><div><h3>AIAgent, projet personnel</h3><p class="org">Python · IA en local · tests automatisés</p></div></li>
+      <li><div class="when">2023 – 2024</div><div><h3>Parcours Data Analyst</h3><p class="org">OpenClassrooms</p><p>Projets en SQL, Excel et Python : ventes e-commerce, bases de données, santé publique, qualité des données.</p></div></li>
+      <li><div class="when">2020 – 2023</div><div><h3>Commercial sédentaire</h3><p class="org">GIE COMMADIS (FORPRODIS)</p><p>Qualification des besoins, devis, suivi commercial et administratif des dossiers de formation, accompagnement des apprenants et relation client.</p></div></li>
+      <li><div class="when">2019 – 2020</div><div><h3>Commercial itinérant et chef d'équipe</h3><p class="org">ENGIE</p><p>Portefeuille de plus de 500 clients B2B et B2C, formation et encadrement de 3 commerciaux, suivi des résultats et reporting.</p></div></li>
+      <li><div class="when">2017 – 2018</div><div><h3>Commercial sédentaire</h3><p class="org">Afrimarket</p><p>Rapports Power BI de suivi des ventes et plan commercial. <a href="#afrimarket">Voir le détail</a></p></div></li>
+      <li><div class="when">2015 – 2017</div><div><h3>Bachelor of Science, puis une année de MSc</h3><p class="org">SUPINFO Paris · informatique</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Parlons de vos données</h2>
+        <p>Je suis disponible dès maintenant pour une alternance. J'habite à Roanne et je peux me déplacer dans toute la région Auvergne-Rhône-Alpes.</p>
+      </div>
+      <div class="coord">
+        <div><span id="c-mail">moustapha.senghor10@gmail.com</span><button type="button" data-copy="c-mail">Copier</button></div>
+        <div><span id="c-tel">07 50 30 50 91</span><button type="button" data-copy="c-tel">Copier</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Mouhammad Senghor · Data Analyst</span>
+    <span>Les chiffres de ce portfolio viennent de mes fichiers, requêtes et notebooks.</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var el=document.getElementById(btn.getAttribute('data-copy'));
+    var txt=el.textContent.trim();
+    function done(){btn.textContent='Copié';setTimeout(function(){btn.textContent='Copier';},1600);}
+    function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Sélectionné';setTimeout(function(){btn.textContent='Copier';},1600);}
+    try{navigator.clipboard.writeText(txt).then(done,fallback);}catch(e){fallback();}
+  });
+});
+document.querySelectorAll('.dataview').forEach(function(dv){
+  var tabs=dv.querySelectorAll('[role="tab"]');
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(o){o.setAttribute('aria-selected','false');o.tabIndex=-1;document.getElementById(o.getAttribute('aria-controls')).hidden=true;});
+      t.setAttribute('aria-selected','true');t.tabIndex=0;document.getElementById(t.getAttribute('aria-controls')).hidden=false;
+    });
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d)return;
+      var n=tabs[(i+d+tabs.length)%tabs.length]; n.focus(); n.click();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
