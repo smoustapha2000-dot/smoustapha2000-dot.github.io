@@ -109,25 +109,13 @@ section.block + section.block{border-top:1px solid var(--line)}
 .chip{font:500 .75rem/1 var(--f-mono);padding:6px 8px;border-radius:5px;background:var(--sunk);color:var(--ink);white-space:nowrap}
 
 /* Afrimarket */
-.xp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.xp{display:grid;grid-template-columns:minmax(0,1fr);max-width:760px}
 @media (max-width:900px){.xp{grid-template-columns:minmax(0,1fr)}}
 .xp .story{display:grid;gap:22px}
 .xp h3{font-size:var(--s2);margin-bottom:8px}
 .xp p + p{margin-top:10px}
 .result{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
 .result b{font:800 var(--s3)/1 var(--f-display);color:var(--accent-ink);white-space:nowrap}
-.tree{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-.tree figcaption{font-size:var(--s-1);color:var(--muted);margin-top:12px}
-.tree svg{width:100%;height:auto;display:block}
-.tree .node rect{fill:var(--sunk);stroke:var(--line)}
-.tree .node text{fill:var(--ink);font:600 13px var(--f-body)}
-.tree .node .sub{fill:var(--muted);font:400 11px var(--f-body)}
-.tree .lever rect{fill:var(--accent-soft);stroke:var(--accent)}
-.tree .lever text{fill:var(--ink);font:600 12.5px var(--f-body)}
-.tree .op{fill:var(--muted);font:700 15px var(--f-display)}
-.tree .edge{stroke:var(--muted);stroke-width:1.2;fill:none}
-.tree .edge-l{stroke:var(--accent);stroke-width:1.6;fill:none;stroke-dasharray:4 3}
-.tree .dim text{fill:var(--muted);font:500 11.5px var(--f-mono)}
 .bridge{margin-top:28px;background:var(--accent-soft);border-radius:var(--r);padding:18px 20px;display:grid;gap:6px}
 .bridge strong{font-family:var(--f-display)}
 
@@ -381,28 +369,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <b>+10 à 20 %</b>
           <p>C'est l'écart avec lequel j'ai régulièrement dépassé mon objectif mensuel de 15 000 €.</p>
         </div>
+        <p class="note">Je ne peux pas montrer les rapports eux-mêmes : les données appartiennent à l'entreprise.</p>
       </div>
-      <figure class="tree">
-        <svg viewBox="0 0 560 430" role="img" aria-labelledby="tree-t tree-d">
-          <title id="tree-t">La logique de mes rapports Afrimarket</title>
-          <desc id="tree-d">Le chiffre d'affaires se décompose en nombre de commandes multiplié par le panier moyen. Les commandes dépendent du nombre de clients actifs et de leur fréquence d'achat. Les temps forts agissent sur la fréquence, les ventes additionnelles sur le panier moyen. Les rapports croisent ces indicateurs par pays, par catégorie et par client.</desc>
-          <g class="node"><rect x="190" y="14" width="180" height="52" rx="8"/><text x="280" y="38" text-anchor="middle">Chiffre d'affaires</text><text class="sub" x="280" y="55" text-anchor="middle">objectif 15 000 € / mois</text></g>
-          <path class="edge" d="M280 66 V92 M140 92 H420 M140 92 V112 M420 92 V112"/>
-          <g class="node"><rect x="40" y="112" width="200" height="52" rx="8"/><text x="140" y="136" text-anchor="middle">Nombre de commandes</text><text class="sub" x="140" y="153" text-anchor="middle">par pays de livraison</text></g>
-          <text class="op" x="280" y="144" text-anchor="middle">×</text>
-          <g class="node"><rect x="320" y="112" width="200" height="52" rx="8"/><text x="420" y="136" text-anchor="middle">Panier moyen</text><text class="sub" x="420" y="153" text-anchor="middle">par catégorie de produits</text></g>
-          <path class="edge" d="M140 164 V188 M70 188 H210 M70 188 V206 M210 188 V206"/>
-          <g class="node"><rect x="10" y="206" width="120" height="52" rx="8"/><text x="70" y="230" text-anchor="middle">Clients actifs</text><text class="sub" x="70" y="247" text-anchor="middle">portefeuille</text></g>
-          <text class="op" x="140" y="238" text-anchor="middle">×</text>
-          <g class="node"><rect x="150" y="206" width="120" height="52" rx="8"/><text x="210" y="230" text-anchor="middle">Fréquence d'achat</text><text class="sub" x="210" y="247" text-anchor="middle">fidélité</text></g>
-          <g class="lever"><rect x="120" y="318" width="180" height="46" rx="23"/><text x="210" y="346" text-anchor="middle">Temps forts</text></g>
-          <path class="edge-l" d="M210 318 V258"/>
-          <g class="lever"><rect x="330" y="318" width="180" height="46" rx="23"/><text x="420" y="346" text-anchor="middle">Ventes additionnelles</text></g>
-          <path class="edge-l" d="M420 318 V164"/>
-          <g class="dim"><text x="280" y="408" text-anchor="middle">Vues : pays · catégorie · client</text></g>
-        </svg>
-        <figcaption>La logique de mes rapports : décomposer le chiffre d'affaires pour voir sur quoi agir. En pointillés, les deux leviers de mon plan commercial. Je ne peux pas montrer les rapports eux-mêmes, les données appartiennent à l'entreprise.</figcaption>
-      </figure>
     </div>
     <div class="bridge">
       <strong>Ce que j'en ai retenu</strong>
